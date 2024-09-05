@@ -1,0 +1,10 @@
+C:\Users\ASUS\Desktop\Annotation\MongoDB\bin\Debug\netcoreapp3.1\MongoDB.deps.json
+C:\Users\ASUS\Desktop\Annotation\MongoDB\bin\Debug\netcoreapp3.1\MongoDB.dll
+C:\Users\ASUS\Desktop\Annotation\MongoDB\bin\Debug\netcoreapp3.1\MongoDB.pdb
+C:\Users\ASUS\Desktop\Annotation\MongoDB\obj\Debug\netcoreapp3.1\MongoDB.csproj.AssemblyReference.cache
+C:\Users\ASUS\Desktop\Annotation\MongoDB\obj\Debug\netcoreapp3.1\MongoDB.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ASUS\Desktop\Annotation\MongoDB\obj\Debug\netcoreapp3.1\MongoDB.AssemblyInfoInputs.cache
+C:\Users\ASUS\Desktop\Annotation\MongoDB\obj\Debug\netcoreapp3.1\MongoDB.AssemblyInfo.cs
+C:\Users\ASUS\Desktop\Annotation\MongoDB\obj\Debug\netcoreapp3.1\MongoDB.csproj.CoreCompileInputs.cache
+C:\Users\ASUS\Desktop\Annotation\MongoDB\obj\Debug\netcoreapp3.1\MongoDB.dll
+C:\Users\ASUS\Desktop\Annotation\MongoDB\obj\Debug\netcoreapp3.1\MongoDB.pdb
