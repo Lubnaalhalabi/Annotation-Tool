@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33423.256
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App", "App\App.csproj", "{DBC9D0AA-F14E-4E42-AD95-B198123D0223}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DB", "DB\DB.csproj", "{6C21B045-001B-4E16-93C8-0719FAAD191C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDB", "MongoDB\MongoDB.csproj", "{304AF478-F634-4EC5-AAAB-D585F13F264D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DBC9D0AA-F14E-4E42-AD95-B198123D0223}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBC9D0AA-F14E-4E42-AD95-B198123D0223}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBC9D0AA-F14E-4E42-AD95-B198123D0223}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBC9D0AA-F14E-4E42-AD95-B198123D0223}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C21B045-001B-4E16-93C8-0719FAAD191C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C21B045-001B-4E16-93C8-0719FAAD191C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C21B045-001B-4E16-93C8-0719FAAD191C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C21B045-001B-4E16-93C8-0719FAAD191C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{304AF478-F634-4EC5-AAAB-D585F13F264D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{304AF478-F634-4EC5-AAAB-D585F13F264D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{304AF478-F634-4EC5-AAAB-D585F13F264D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{304AF478-F634-4EC5-AAAB-D585F13F264D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AEB7612A-FE7F-4ACF-9E57-D3B792426D28}
+	EndGlobalSection
+EndGlobal
