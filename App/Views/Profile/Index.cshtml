@@ -1,0 +1,465 @@
+﻿@model App.ViewModels.ProfileViewModel;
+@{
+    ViewData["Title"] = "Profile";
+}
+@{
+    if (User.IsInRole("Annotator"))
+    {
+        Layout = "~/Views/Shared/_ProfileLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}
+@if (Model.Img == null)
+{
+    Model.Img = "create.jpg";
+}
+
+@section CSS {
+    <link rel="stylesheet" href="/css/profile.css?v2" />
+}
+
+<div class="container-fluid">
+    <div class="page-header border-radius-xl mt-4 my-header"></div>
+
+    <div class="card card-body blur shadow-blur mx-4 mt-n6 overflow-hidden my-pro">
+        <div class="row gx-4">
+            <div class="col-auto">
+                <div class="avatar avatar-xl position-relative">
+                    <img src="/img/users/@Model.Img" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+                </div>
+            </div>
+            <div class="col-auto my-auto">
+                <div class="h-100">
+                    <h5 class="mb-1" style="color:black">
+                        @Model.Name
+                    </h5>
+
+                    @if (User.IsInRole("Annotator"))
+                    {
+                        <p class="mb-0 font-weight-bold text-sm">
+                            Annotator
+                        </p>
+
+                    }
+                    else if (User.IsInRole("Admin"))
+                    {
+                        <p class="mb-0 font-weight-bold text-sm">
+                            Admin
+                        </p>
+                    }
+                    else
+                    {
+                        <p class="mb-0 font-weight-bold text-sm">
+                            Manager
+                        </p>
+
+                    }
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
+                <div class=" position-relative end-0">
+                    <ul class="nav nav-pills nav-fill p-1 bg-transparent" role="tablist">
+
+                        @if (User.IsInRole("Annotator"))
+                        {
+                            <li class="nav-item" id="task_btn" style="cursor: pointer !important">
+                                <a class="nav-link mb-0 px-0 py-1">
+                                    <span style="color: black !important">Tasks</span>
+                                </a>
+                            </li>
+                        }
+                        <li class="nav-item" id="setting_btn" style="cursor:pointer !important">
+                            <a class="nav-link mb-0 px-0 py-1 ">
+                                <span style="color: black !important">Settings</span>
+                            </a>
+                        </li>
+                        @if (User.IsInRole("Annotator"))
+                        {
+                            <li class="nav-item">
+                                <a onclick="logout()" class="nav-link mb-0 px-0 py-1 " style="height: 25px; width: 100px; text-align: center;cursor:pointer">
+                                    <span style="display: inline-grid;color:black">Logout</span>
+                                    <i class="fa fa-sign-out" aria-hidden="true" style="display: inline-grid; color: red;"></i>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    @if (User.IsInRole("Annotator"))
+    {
+
+
+        <div class="row" id="task">
+            <div class="col-12" style=" margin-top: 10px;">
+                <div class="card mb-4">
+                    <div class="card-header pb-0" style="background-image: linear-gradient(310deg, rgb(150, 41, 65) 60%, black 100%) !important;">
+                        <h6 style="color:#fff;text-align:center">Tasks table</h6>
+                    </div>
+                    <div class="card-body px-0 pt-0 pb-2">
+                        <div class="table-responsive p-0" style="overflow-y: scroll; height: 400px !important">
+                            <table class="table align-items-center justify-content-center mb-0">
+                                <thead style="color:black">
+                                    <tr>
+                                        <th class="text-uppercase text-xs font-weight-bolder opacity-8" style="text-align:center">Name</th>
+                                        <th class="text-uppercase text-xs font-weight-bolder opacity-8" style="text-align:center">Deadline</th>
+                                        <th class="text-uppercase text-xs font-weight-bolder opacity-8" style="text-align:center">Status</th>
+                                        <th class="text-uppercase text-xs font-weight-bolder opacity-8" style="text-align:center">Get started</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="color:black">
+                                    @foreach (var task in ViewBag.Tasks)
+                                    {
+                                        <tr>
+                                            <td class="align-middle text-center">
+                                                <p class="text-sm font-weight-400 mb-0" style="text-align:center">@task.Name</p>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <p class="text-sm font-weight-400 mb-0">@task.Deadline</p>
+                                            </td>
+
+                                            <td class="align-middle text-center">
+                                                @if (task.Status == 0)
+                                                {
+                                                    <p class="text-sm font-weight-400 mb-0">Waiting</p>
+                                                }
+                                                else if (task.Status == 1)
+                                                {
+                                                    <p class="text-sm font-weight-400 mb-0">Running</p>
+                                                }
+                                                else if (task.Status == 3)
+                                                {
+                                                    <p class="text-sm font-weight-400 mb-0">Finished</p>
+                                                }
+                                                else if (task.Status == 4)
+                                                {
+                                                    <p class="text-sm font-weight-400 mb-0">Cancelled</p>
+                                                }
+                                                else if (task.Status == 5)
+                                                {
+                                                    <p class="text-sm font-weight-400 mb-0">Waiting for AI Training</p>
+                                                }
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <a href='@Url.Action("Index","Text")?taskId=@task.Id'>
+                                                    <i class="fa fa-play ply" style="color:darkgreen"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+   
+    <div id="setting">
+        <form asp-action="EditProfile" id="update" style="margin-top: 20px;" enctype="multipart/form-data">
+            <div id="left_pro">
+                <div class="img-cont">
+
+                    <img id="ImgPreview" alt="Select_image" class="user_img" src="/img/users/@Model.Img">
+                    <div class="edit-img">
+                        <i class="fa fa-camera edit-img" onclick="$('#fileUploader').trigger('click');" aria-hidden="true" style="color:black">
+                        </i>
+                        <input type="file" accept="image/*" data-type="ImgInputWithPreview" id="fileUploader" style="display: none" data-previewer="ImgPreview" class="form-control" name="Img" />
+
+                    </div>
+                </div>
+            </div>
+            <div id="right_pro">
+                <h5 style="color:black">Personal information</h5>
+                <div class="mb-3">
+                    <input asp-for="@Model.Name" type="text" class="form-control" placeholder="Name" value="@Model.Name">
+                </div>
+                <div class="mb-3">
+                    <input asp-for="@Model.Email" type="email" class="form-control" placeholder="Email" value="@Model.Email">
+                </div>
+                <div class="mb-3">
+                    <input asp-for="@Model.Address" type="text" class="form-control" placeholder="Address" value="@Model.Address">
+                </div>
+                <div class="mb-3">
+                    <input asp-for="@Model.Phone" type="text" class="form-control" placeholder="Phone Number" value="@Model.Phone">
+                </div>
+                <div class="mb-3">
+                    <input asp-for="@Model.OldPassword" type="password" class="form-control" placeholder="Old Password">
+                </div>
+                <div class="mb-3">
+                    <input asp-for="@Model.NewPassword" type="password" class="form-control" placeholder="New Password">
+                </div>
+            </div>
+            <div class="text-center" id="Upd_btn">
+                <button class="btn bg-gradient-dark w-100 my-4 mb-2">Update</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+@section Scripts{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#setting_btn").attr("style", " background-color: #fff;border-radius: 1rem;cursor: pointer !important ");
+            $("#task_btn").attr("style", "display:block;cursor: pointer !important");
+            //            $("#user_btn").attr("style", "display:block;cursor: pointer !important");
+
+            $("#task").attr("style", "display: none");
+            //  $("#user").attr("style", "display: none");
+            $("#setting").attr("style", "display: block");
+
+            $("#task_btn").click(function (event) {
+                $("#setting_btn").attr("style", "display:block;cursor: pointer !important");
+                //      $("#user_btn").attr("style", "display:block;cursor: pointer !important");
+                $("#task_btn").attr("style", " background-color: #fff;border-radius: 1rem;cursor: pointer !important ");
+
+                $("#task").attr("style", "display: block");
+                //    $("#user").attr("style", "display: none");
+                $("#setting").attr("style", "display:none ");
+            });
+            $("#user_btn").click(function (event) {
+                $("#setting_btn").attr("style", "display:block;cursor: pointer !important");
+                $("#task_btn").attr("style", "display:block;cursor: pointer !important");
+                //      $("#user_btn").attr("style", " background-color: #fff;border-radius: 1rem;cursor: pointer !important ");
+
+                //   $("#user").attr("style", "display: block");
+                $("#task").attr("style", "display: none");
+                $("#setting").attr("style", "display:none ");
+            });
+
+            $("#setting_btn").click(function (event) {
+                $("#task_btn").attr("style", "display:block;cursor: pointer !important");
+                //     $("#user_btn").attr("style", "display:block;cursor: pointer !important");
+                $("#setting_btn").attr("style", " background-color: #fff;border-radius: 1rem;cursor: pointer !important ");
+
+                $("#task").attr("style", "display: none");
+                //      $("#user").attr("style", "display: none");
+                $("#setting").attr("style", "display:block ");
+            });
+            @if (ViewBag.mydo == 1)
+            {
+                <text>
+            $("#setting_btn").attr("style", "display:block;cursor: pointer !important");
+            //      $("#user_btn").attr("style", "display:block;cursor: pointer !important");
+            $("#task_btn").attr("style", " background-color: #fff;border-radius: 1rem;cursor: pointer !important ");
+
+            $("#task").attr("style", "display: block");
+            //    $("#user").attr("style", "display: none");
+            $("#setting").attr("style", "display:none ");
+                </text>
+            }
+
+
+
+            });
+    </script>
+    <!--Submit-->
+    <script>
+        function sendData(form, jsonData) {
+            var sweet_loader = '<div style="display: block"><div class="loader"></div></div>';
+            swal.fire({
+                html: `${sweet_loader}<div style = "margin-top: 10px" >Loading..</div >`,
+                showConfirmButton: false,
+            });
+            $.ajax({
+                url: $(form).attr('action'),
+                type: 'POST',
+                data: jsonData,
+                dataType: 'json',
+                success: function (response) {
+                    swal.close();
+                    var message = '<ul>';
+                    if (response['validationError'] == true) {
+                        if (response['message'] != "This email already exists!!") {
+                            response['message'].forEach(function (element) {
+                                element.errors.forEach(function (error) {
+                                    message += '<li>' + error.errorMessage + '</li>';
+                                })
+                            });
+                        }
+                        else {
+                            message += '<li>' + response['message'] + '</li>';
+                        }
+                        message += '</ul>';
+                        Swal.fire({
+                            title: 'Warning!',
+                            html: message,
+                            icon: 'warning',
+                            confirmButtonColor: 'rgb(150, 41, 65)',
+                            confirmButtonText: 'Ok',
+
+                        });
+
+                    }
+                    else if (response['error'] == true) {
+                        Swal.fire({
+                            title: 'Warning!',
+                            html: response['message'],
+                            icon: 'warning',
+                            confirmButtonColor: 'rgb(150, 41, 65)',
+                            confirmButtonText: 'Ok',
+                        });
+                    }
+
+                    else {
+                        Swal.fire({
+                            title: 'Success',
+                            html: response['message'],
+                            confirmButtonColor: 'rgb(150, 41, 65)',
+                            confirmButtonText: 'Ok',
+                        });
+                    }
+                }
+            });
+
+        }
+
+        function ProcessFormData(formData) {
+            return new Promise((resolve, reject) => {
+                const jsonData = {};
+                formData.forEach(function (value, key) {
+                    if (value instanceof File) {
+                        const reader = new FileReader();
+                        reader.readAsDataURL(value);
+                        reader.onload = function () {
+                            jsonData[key] = reader.result;
+                            if (Object.keys(jsonData).length === [...formData.entries()].length) {
+                                resolve(jsonData);
+                            }
+                        };
+                    } else if (value === 'on') { // Handle checkbox
+                        jsonData[key] = $('input[name=' + key + ']').is(':checked');
+                        if (Object.keys(jsonData).length === [...formData.entries()].length) {
+                            resolve(jsonData);
+                        }
+                    } else {
+                        jsonData[key] = value;
+                        if (Object.keys(jsonData).length === [...formData.entries()].length) {
+                            resolve(jsonData);
+                        }
+                    }
+                });
+                setTimeout(function () {
+                    resolve(jsonData);
+                }, 3000);
+            });
+        }
+
+        function ConvertFormToJson(id) {
+            return new Promise((resolve, reject) => {
+                var formData = new FormData();
+
+                $("#" + id).find('input').each(function () {
+                    var input = $(this);
+                    var name = input.attr('name');
+                    var value = input.val();
+
+                    if (input.attr('type') === 'file') {
+                        var file = input[0].files[0];
+                        formData.append(name, file);
+                    } else {
+                        formData.append(name, value);
+                    }
+                });
+
+                ProcessFormData(formData).then(function (result) {
+                    resolve(result);
+                }).catch(function (error) {
+                    console.error(error);
+                });
+            });
+        }
+
+        $(document).on('change', '[data-type="ImgInputWithPreview"]', function (e) {
+            console.log(this);
+            const [file] = this.files
+            if (file) {
+                $("#" + $(this).attr('data-previewer')).attr('src', URL.createObjectURL(file));
+            }
+        });
+
+        $(document).ready(function () {
+            $("#update").submit(function (e) {
+                e.preventDefault();
+
+                var self = this;
+                ConvertFormToJson($(this).attr('id')).then(function (result) {
+                    sendData(self, result);
+                })
+            });
+        });
+    </script>
+    <!--Img-->
+    <script>
+        $(document).on('change', '[data-type="ImgInputWithPreview"]', function (e) {
+            console.log(this);
+            const [file] = this.files
+            if (file) {
+                $("#" + $(this).attr('data-previewer')).attr('src', URL.createObjectURL(file));
+            }
+        });
+    </script>
+    <!--Logout-->
+    <script>
+        function logout() {
+            var sweet_loader = `<div style="display: block">
+                     <div class="loader">
+                     </div>
+                 </div>`;
+            swal.fire({
+                html: `${sweet_loader}<div style="margin-top: 50px" >Loading...</div>`,
+                showConfirmButton: false,
+            });
+            $.ajax({
+                url: '@Url.Action("Logout", "Accountant")',
+                type: 'POST',
+                dataType: 'json',
+                success: function (response){
+                    swal.close();
+                    Swal.fire({
+                        title: 'Success',
+                        html: response['message'],
+                        confirmButtonColor: 'rgb(150, 41, 65)',
+                        confirmButtonText: 'Ok',
+                    }).then(function () {
+                        window.location = '@Url.Action("Login", "Accountant")';
+                    });
+                }
+            });
+        }
+    </script>
+    <!-- Preview swal for completed task -->
+    @if (ViewBag.completedTask == 1)
+    {
+        <script>
+            Swal.fire({
+                title: 'Warning!',
+                html: "You have completed your job on this task",
+                icon: 'warning',
+                confirmButtonColor: 'rgb(150, 41, 65)',
+                confirmButtonText: 'Ok',
+
+            });
+        </script>
+    }
+    else if(ViewBag.completedTask == 2)
+    {
+        <script>
+            Swal.fire({
+                title: 'Warning!',
+                html: "You can't access this task at this time, please contact the task manager or wait for status changing!",
+                icon: 'warning',
+                confirmButtonColor: 'rgb(150, 41, 65)',
+                confirmButtonText: 'Ok',
+
+            });
+        </script>
+    }
+    <script src="~/js/site.js?v1"></script>
+}

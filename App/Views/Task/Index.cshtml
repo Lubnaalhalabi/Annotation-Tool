@@ -1,0 +1,218 @@
+﻿@model DB.Models.Task;
+@{
+    ViewData["Title"] = "Tasks";
+}
+
+@section CSS {
+    <link rel="stylesheet" href="/css/task.css?v5" />
+}
+@section tasks_link{
+    my_navlink-active
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+
+<div class="row">
+    <div class="col-md-12 mt-4 my-cont">
+        <div class="card shadow" style="height: 586px;">
+            <div class="card-header pb-0 px-3" style=" background-image: linear-gradient(310deg, rgb(150, 41, 65) 60%, black 100%) !important;">
+                <h6 class="mb-0" style="text-align:center;color:#fff;font-weight:900">Task Information</h6>
+            </div>
+
+            <div class="wrapper" style="margin-left: 0px; margin-right: 0px;">
+                <i class="fa-solid fa-angle-left mov" id="leftBtn"></i>
+                <div class="row" style="width: 100%">
+                    <ul class="carousel" style="overflow-y: hidden; scrollbar-width: none; width: 100%  " id="tasksBody">
+                    </ul>
+                </div>
+
+                <i class="fa-solid fa-angle-right mov" id="rightBtn"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="modal-container">
+</div>
+<div id="create" class="shadow" onclick="getCreateModel()">
+    <div class="text-dark position-fixed px-3 py-2">
+        <i class="fa fa-plus py-2"> </i>
+    </div>
+</div>
+@section Scripts{
+    <!--GetAll-->
+    <script>
+        function loadData()
+        {
+
+            $.ajax({
+                url: '@Url.Action("GetAll", "Task")',
+                type: 'POST',
+                dataType: 'json',
+                success: function (data) {
+                    var HTML = '';
+                    var id = 0;
+                    data['data'].forEach(function (item) {
+                        id++;
+                        var status;
+                        var report = `<a href='@Url.Action("Index", "Report")?taskId=${item.id}' class="btn mt-1 w-90" style="background-image: linear-gradient(310deg, rgb(150, 41, 65) 60%, black 100%); color: #fff; margin: auto;width: 300px !important;">View Report</a>`;
+                        if (item.status == 0) {
+                            report = `<a href='#' class="btn mt-1 w-90 disabled" style="background-image: linear-gradient(310deg, rgb(150, 41, 65) 60%, black 100%); color: #fff; margin: auto;width: 300px !important;">View Report</a>`;
+                            status = ` <span style="color:#ead406;font-size: 12px;font-weight: 900;">Waiting</span>`;
+                        }
+                        else if (item.status == 1) {
+                            status = ` <span style="color:#0672ea;font-size: 12px;font-weight: 900;">Running</span>`;
+                        }
+                        else if (item.status == 3) {
+                            status = ` <span style="font-size: 12px;font-weight: 900;color:#28a745!important;">Finished</span>`;
+                        }
+                        else if (item.status == 4) {
+                            status = ` <span class="text-danger" style="font-size: 12px;font-weight: 900;">Cancelled</span>`;
+                        }
+                        else if (item.status == 5) {
+                            status = ` <span class="text-danger" style="font-size: 12px;font-weight: 900;">Waiting for AI Training</span>`;
+                        }
+                        console.log(data);
+                        var img = "/img/image.jpg";
+                        if (item.inputType.id == 2) img = "/img/txt.png";
+                        HTML += `
+                        <li class="card">
+                            <div class="card-header mx-4 p-3 text-center">
+                                <i onclick="removeCard(${item.id})" class="fas fa-trash p-3 cursor-pointer text-secondary opacity-8 position-absolute end-0 top-0"></i>
+                                <i onclick="getEditModel(${item.id})" class="fa fa-pen  p-3 cursor-pointer text-secondary opacity-8 position-absolute end-10 top-0"></i>
+                                <div class="icon icon-shape icon-lg bg-gradient-primary shadow text-center border-radius-lg " style=" background-image: linear-gradient(310deg, rgb(150, 41, 65) 60%, black 100%) !important;">
+                                    <img src="${img}" class="img" />
+                                </div>
+                            </div>
+                            <div class="card-body pt-0 p-3 text-center">
+                                <h2>${item.name}</h2>
+                                    ${status}
+                                <div class="my-containr">
+                                    <div class="my-info">
+                                        <span>Maneger:</span>
+                                        <p>${item.taskManeger}</p>
+                                    </div>
+                                    <div class="my-info">
+                                        <span>Number of annotator:</span>
+                                        <p>${item.numberOfAnnotators}</p>
+                                    </div>
+                                    <div class="my-info">
+                                        <span>Random:</span>
+                                        <p>${item.random}</p>
+                                    </div>
+                                    <div class="my-info">
+                                        <span>Class mapping:</span>
+                                        <p>${item.annotationClassMapping.name}</p>
+                                    </div>
+                                    <div class="my-info">
+                                        <span>Distribution policy:</span>
+                                        <p>${item.distributionPolicy.name}</p>
+                                    </div>
+                                    <div class="my-info">
+                                        <span>Task type:</span>
+                                        <p>${item.taskType.name}</p>
+                                    </div>
+
+                                </div>
+                                <div class="my-info">
+                                    <span>Deadline:</span>
+                                    <p>${item.deadline.split('T')[0]}</p>
+                                </div>
+                                 <div>
+                                    ${report}
+                                 </div>
+                            </div>
+                        </li>`;
+                    });
+                    $("#tasksBody").html(HTML);
+                }
+            });
+        }
+        loadData();
+    </script>
+    <script>
+    const wrapper = document.querySelector(".wrapper");
+    const carousel = document.querySelector(".carousel");
+    firstCardWidth = carousel.querySelector(".card").offsetWidth;
+    const arrowBtns = document.querySelectorAll(".mov");
+    const carouselChildrens = [...carousel.children];
+
+    let isDragging = false, isAutoPlay = true, startX, startScrollLeft, timeoutId;
+
+    // Get the number of cards that can fit in the carousel at once
+    let cardPerView = Math.round(carousel.offsetWidth / firstCardWidth);
+
+    // Add event listeners for the arrow buttons to scroll the carousel left and right
+    arrowBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            carousel.scrollLeft += btn.id == "leftBtn" ? -firstCardWidth-50 : firstCardWidth;
+        });
+    });
+
+@*    const dragStart = (e) => {
+        isDragging = true;
+        carousel.classList.add("dragging");
+        // Records the initial cursor and scroll position of the carousel
+        startX = e.pageX;
+        startScrollLeft = carousel.scrollLeft;
+    }
+
+    const dragging = (e) => {
+        if (!isDragging) return; // if isDragging is false return from here
+        // Updates the scroll position of the carousel based on the cursor movement
+        carousel.scrollLeft = startScrollLeft - (e.pageX - startX);
+    }
+
+    const dragStop = () => {
+        isDragging = false;
+        carousel.classList.remove("dragging");
+    }*@
+
+@*    carousel.addEventListener("mousedown", dragStart);
+    carousel.addEventListener("mousemove", dragging);
+    document.addEventListener("mouseup", dragStop);*@
+    wrapper.addEventListener("mouseenter", () => clearTimeout(timeoutId));
+    </script>
+    <!--Create-->
+    <script>
+        function getCreateModel() {
+            window.location = '@Url.Action("Create", "Task")';
+        }
+        // onclick="sendModelAjax()"
+    </script>
+    <!--Edit-->
+    <script>
+        function getEditModel(id) {
+            window.location = '@Url.Action("Edit", "Task")/' + id;
+        }
+        // getEditModel(taskId) we call it in this way
+    </script>
+    <!--Remove -->
+    <script>
+        function removeCard(id) {
+            var sweet_loader = `<div style="display: block">
+                     <div class="loader">
+                     </div>
+                 </div>`;
+            swal.fire({
+                html: `${sweet_loader}<div style="margin-top: 50px" >Loading...</div>`,
+                showConfirmButton: false,
+            });
+            $.ajax({
+                url: '@Url.Action("Delete","Task")',
+                type: 'POST',
+                data: {"Id": id},
+                dataType: 'json',
+                success: function (response) {
+                    swal.close();
+                    console.log('asmdsiwofnwinf');
+                    Response(response);
+                    loadData();
+                }
+            });
+        }
+    </script>
+
+}

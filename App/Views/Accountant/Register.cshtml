@@ -1,0 +1,113 @@
+﻿@model App.ViewModels.RegisterViewModel
+
+@{
+    Layout = "~/Views/Shared/_LandingPageLayou.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/register.css?v1">
+    <script src="https://kit.fontawesome.com/247b19d47d.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/site.css?v5" />
+    <title>Register</title>
+</head>
+<body>
+    <div id="cont_reg">
+        <div id="rightr">
+            <i class="fa fa-user-circle-o" style="font-size:90px" id="faa"></i>
+            <h1 id="h1">
+                <strong>Register</strong>
+            </h1>
+            <form asp-action="Create" id="create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="input" >
+                    <input asp-for="@Model.Name" class="btn" placeholder="Name">
+                    <input asp-for="@Model.Email" class="btn" placeholder="Email">
+                    <input asp-for="@Model.Address" class="btn" placeholder="Address">
+                    <input asp-for="@Model.Phone" class="btn" placeholder="Phone">
+                    <input asp-for="@Model.Password" class="btn" placeholder="Password">
+                    <input asp-for="@Model.ConfirmPassword" class="btn" placeholder="ConfirmPassword">
+                    <button class="btn" id="create">Create an account</button>
+                </div>
+            </form>
+            <a onclick='Login()' style="color:#f1adad;cursor:pointer">Already have an account?!</a>
+        </div>
+    </div>
+</body>
+</html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+<script>
+    function Login() {
+            window.location ='@Url.Action("Login", "Accountant")';
+        }
+</script>
+<script>
+    $(document).ready(function () {
+        $("#create").submit(function (e) {
+            e.preventDefault();
+            var sweet_loader = '<div style="display: block"><div class="loader"></div></div>';
+            swal.fire({
+                html: `${sweet_loader}<div style = "margin-top: 10px" >Loading..</div >`,
+                showConfirmButton: false,
+            });
+            $.ajax({
+                url: $(this).attr('action'),
+                type: 'POST',
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function (response) {
+                    swal.close();
+                    var message = '<ul>';
+                    if (response['validationError'] == true) {
+                        if (response['message'] != "This email already exists!!") {
+                            response['message'].forEach(function (element) {
+                                element.errors.forEach(function (error) {
+                                    message += '<li>' + error.errorMessage + '</li>';
+                                })
+                            });
+                        }
+                        else {
+                            message += '<li>' + response['message'] + '</li>';
+                        }
+                        message += '</ul>';
+                        Swal.fire({
+                            title: 'Warning!',
+                            html: message,
+                            icon: 'warning',
+                            confirmButtonColor: 'rgb(150, 41, 65)',
+                            confirmButtonText: 'Ok',
+
+                        });
+
+                    }
+                    else if (response['error'] == true) {
+                        Swal.fire({
+                            title: 'Warning!',
+                            html: response['message'],
+                            icon: 'warning',
+                            confirmButtonColor: 'rgb(150, 41, 65)',
+                            confirmButtonText: 'Ok',
+                        });
+                    }
+
+                    else {
+                        Swal.fire({
+                            title: 'Success',
+                            html: response['message'],
+                            confirmButtonColor: 'rgb(150, 41, 65)',
+                            confirmButtonText: 'Ok',
+                        }).then(function(){
+                            window.location = '@Url.Action("Index","Profile")';
+                        });
+                    }
+                }
+            });
+        });
+    });
+</script>

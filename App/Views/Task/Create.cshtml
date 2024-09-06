@@ -1,0 +1,259 @@
+﻿@model DB.Models.Task;
+@{
+    ViewData["Title"] = "Create_Task";
+}
+
+@section CSS {
+    <link rel="stylesheet" href="/css/createtask.css?v3" />
+}
+
+<div id="creat">
+    <div class="create-head">
+        <h5 class="create-head" style="background-image: none;">Create Task</h5>
+    </div>
+    <div class="crate-body">
+        <!--OUR NEW SECTION-->
+        <form method="POST" id="createtask" action="@Url.Action("Create","Task")">
+            <div>
+                <div class="groups">
+                    General information
+                </div>
+
+                <input asp-for="@Model.Name" placeholder="Enter name" class="my-info-cr" />
+                <input asp-for="@Model.Deadline" placeholder="Enter deadline" class="my-info-cr" />
+
+                <div class="groups">
+                    Set the annotating mechanism
+                </div>
+
+                <input asp-for="@Model.NumberOfAnnotators" placeholder="Enter number of annotator" class="my-info-cr" />
+
+                <div class="my-info-cr-se">
+                    <label asp-for="@Model.AnnotationClassMapping">
+                        Choose class mapping:<br />
+                        <span class="text-success" id="AnnotationClassMappingDiscription"></span>
+                    </label>
+                    <select id="AnnotationClassMappingSelect" asp-for="@Model.AnnotationClassMappingId">
+                        <option selected disabled value="0">Select Class Mapping</option>
+                        @foreach (var p in ViewBag.AnnotationClassMapping)
+                        {
+                            <option value="@p.Id" data-description="@p.Description">@p.Name</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="my-info-cr-se">
+                    <label asp-for="@Model.Random">
+                        Choose whether to fetch record from the database randomly or not:<br />
+                    </label>
+                    <select asp-for="@Model.Random">
+                        <option selected disabled value="0">Select Random</option>
+                        <option value=1>Random</option>
+                        <option value=0>Not random</option>
+                    </select>
+                </div>
+
+                <div class="my-info-cr-se">
+                    <label asp-for="@Model.AiTraining">
+                        Choose AI Training Model Algorithm:<br />
+                    </label>
+                    <select asp-for="@Model.AiTraining">
+                        <option selected disabled value="0">Select Training Algorithm</option>
+                        <option value=1>SDCA Algorithm</option>
+                        <option value=0>Don't use AI Training</option>
+                    </select>
+                </div>
+
+                <div class="my-info-cr-se">
+                    <label asp-for="@Model.DistributionPolicy">
+                        Choose distribution Policy:<br />
+                        <span class="text-success" id="DistributionPolicyDiscription"></span>
+                    </label>
+                    <select id="DistributionPolicySelect" asp-for="@Model.DistributionPolicyId">
+                        <option selected disabled value="0">Select Distribution Policy </option>
+                        @foreach (var p in ViewBag.DistributionPolicy)
+                        {
+                            <option value="@p.Id" data-description="@p.Description">@p.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="my-info-cr-se">
+                    <label asp-for="@Model.TaskType">
+                        Choose Task type:<br />
+                        <span class="text-success" id="TaskTypeDiscription"></span>
+                    </label>
+                    <select id="TaskTypeSelect" asp-for="@Model.TaskTypeId">
+                        <option selected disabled value="0">Select Task Type</option>
+                        @foreach (var p in ViewBag.TaskType)
+                        {
+                            <option value="@p.Id" data-description="@p.Description">@p.Name</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="groups">
+                    The input and output of the annotating process
+                </div>
+                <div class="my-info-cr-se">
+                    <label asp-for="@Model.InputType">
+                        Choose input type:<br />
+                        <span class="text-success" id="InputTypeDiscription"></span>
+                    </label>
+                    <select id="InputTypeSelect" asp-for="@Model.InputTypeId">
+                        <option selected disabled value="0">Select Input Type</option>
+                        @foreach (var p in ViewBag.InputType)
+                        {
+                            <option value="@p.Id" data-description="@p.Description">@p.Name</option>
+                        }
+                    </select>
+                </div>
+                <input type="file" name="data" id="dataInput" placeholder="Enter Data" class="my-info-cr" />
+                <div class="my-cont-dynamic" id="formfield">
+                    <i class="fa fa-plus" onclick="add()"></i>
+                    <i class="fas fa-times" onclick=" remove()"></i>
+                    <input type="text" name="Class[0].Name" class="my-info-cr" size="50" placeholder="Enter the class" />
+                    <input type="text" name="Class[1].Name" class="my-info-cr" size="50" placeholder="Enter the class" />
+                </div>
+
+            </div>
+            <div>
+                <button class="btn mt-3 w-90" style="background-image: linear-gradient(310deg, rgb(150, 41, 65) 60%, black 100%); color: #fff; margin: auto; width: 100% !important; ">Add Task</button>
+            </div>
+        </form>
+        <!--The END-->
+    </div>
+</div>
+
+
+
+@section Scripts{
+<script>
+    var formfield = document.getElementById('formfield');
+    var ClassesID = 2;
+    function add() {
+        var newField = document.createElement('input');
+        newField.setAttribute('type', 'text');
+        newField.setAttribute('name', 'Class[' + ClassesID + '].Name');
+        newField.setAttribute('class', 'my-info-cr');
+        newField.setAttribute('siz', 50);
+        newField.setAttribute('placeholder', 'Enter class');
+        formfield.appendChild(newField);
+        ClassesID++;
+    }
+
+    function remove() {
+        var input_tags = formfield.getElementsByTagName('input');
+        if (input_tags.length > 2) {
+            formfield.removeChild(input_tags[(input_tags.length) - 1]);
+        }
+    }
+
+</script>
+<!--Responce script-->
+<script>
+    function Response(data) {
+        if (data['validationError'] == true) {
+            var message = '<ul>';
+            data['message'].forEach(function (element) {
+                element.errors.forEach(function (error) {
+                    message += '<li>' + error.errorMessage + '</li>';
+                });
+            });
+            message += '</ul>';
+            Swal.fire({
+                title: 'Warning!',
+                html: message,
+                icon: 'warning',
+                confirmButtonColor: 'rgb(150, 41, 65)',
+                confirmButtonText: 'Ok',
+            });
+        }
+        else if (data['error'] == true) {
+            Swal.fire({
+                title: 'Warning!',
+                html: data['message'],
+                icon: 'warning',
+                confirmButtonColor: 'rgb(150, 41, 65)',
+                confirmButtonText: 'Ok',
+            });
+        }
+        else {
+            Swal.fire({
+                title: 'Success',
+                html: data['message'],
+                confirmButtonColor: 'rgb(150, 41, 65)',
+                confirmButtonText: 'Ok',
+            });
+            loadData();
+        }
+    }
+</script>
+<!--Decription-->
+<script>
+    $("#InputTypeSelect").change(function () {
+        $("#InputTypeDiscription").html($(this).children(":selected").attr('data-description'));
+    });
+    $("#AnnotationClassMappingSelect").change(function () {
+        $("#AnnotationClassMappingDiscription").html($(this).children(":selected").attr('data-description'));
+    });
+    $("#DistributionPolicySelect").change(function () {
+        $("#DistributionPolicyDiscription").html($(this).children(":selected").attr('data-description'));
+
+    });
+    $("#TaskTypeSelect").change(function () {
+        $("#TaskTypeDiscription").html($(this).children(":selected").attr('data-description'));
+
+    });
+</script>
+<!-- Submit form -->
+<script>
+    $(document).ready(function () {
+        $(document).on('submit', '#createtask', function (e) {
+            e.preventDefault();
+            var sweet_loader = `<div style="display: block">
+                         <div class="loader">
+                         </div>
+                     </div>`;
+            swal.fire({
+                html: `${sweet_loader}<div style="margin-top: 50px" >Loading...</div>`,
+                showConfirmButton: false,
+            });
+
+
+            var formData = new FormData();
+            var fileInput = $("#dataInput")[0].files[0];
+            formData.append("data", fileInput);
+
+            $(this).find(":input").not(":file").each(function () {
+                formData.append($(this).attr("name"), $(this).val());
+            });
+
+            $.ajax({
+                url: $(this).attr('action'),
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                data: formData,
+                dataType: 'json',
+                success: function (response) {
+                    swal.close();
+                    if (response['error'] == false) {
+                        // success logic
+                        Swal.fire({
+                            title: 'Success',
+                            html: response['message'],
+                            confirmButtonColor: 'rgb(150, 41, 65)',
+                            confirmButtonText: 'Ok',
+                        }).then(function () {
+                            window.location = '@Url.Action("Index","Task")';
+                        });
+                    }
+                    else
+                        Response(response);
+                }
+            });
+        });
+    });
+
+</script>
+}

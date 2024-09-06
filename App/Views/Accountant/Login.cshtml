@@ -1,0 +1,110 @@
+﻿@model App.ViewModels.LoginViewModel 
+@{
+    Layout = "~/Views/Shared/_LandingPageLayou.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/login.css">
+    <script src="https://kit.fontawesome.com/247b19d47d.js" crossorigin="anonymous"></script>
+    <title>Login</title>
+</head>
+<body>
+    <div id="cont">
+
+        <div id="right">
+            <img src="/img/login.png">
+        </div>
+
+
+        <div id="left">
+            <i class="fa fa-user-circle-o" id="fa"></i>
+            <h1>
+                <strong>Login</strong>
+            </h1>
+            <form id="create" asp-action="Login">
+                <div class="input">
+                    <input asp-for="Email" class="btn" placeholder="Email">
+                    <input asp-for="Password" class="btn" placeholder="Password">
+                    <button type="submit" class="btn" id="login">login</button><br>
+                </div>
+            </form>
+            <div id="pa">
+                <input type="checkbox">
+                <label for="check1">Remmeber me</label>
+            </div>
+            <div id="final">
+                <p> Not a member?!</p>
+                <button onclick="Register()">Create an account</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+<script>
+    function Register() {
+            window.location ='@Url.Action("Register", "Accountant")';
+        }
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#create").submit(function (e) {
+            e.preventDefault();
+            var sweet_loader = '<div style="display: block"><div class="loader"></div></div>';
+            swal.fire({
+                html: `${ sweet_loader } <div style = "margin-top: 10px" >Loading Data</div >`,
+                showConfirmButton: false,
+                });
+            $.ajax({
+                url: $(this).attr('action'),
+                type: 'POST',
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function (response) {
+                    swal.close();
+                    var message = '<ul>';
+                    if (response['validationError'] == true) {
+                        response['message'].forEach(function (element) {
+                            element.errors.forEach(function (error) {
+                                message += '<li>' + error.errorMessage + '</li>';
+                            })
+                        });
+                        message += '</ul>';
+                        Swal.fire({
+                            title: 'Warning!',
+                            html: message,
+                            icon: 'warning',
+                            confirmButtonColor: 'rgb(150, 41, 65)',
+                            confirmButtonText: 'Ok',
+                        });
+                    }
+                    else if (response['error'] == true) {
+                        Swal.fire({
+                            title: 'Warning!',
+                            html: response['message'],
+                            icon: 'warning',
+                            confirmButtonColor: 'rgb(150, 41, 65)',
+                            confirmButtonText: 'Ok',
+                        });
+                    }
+                    else {
+                        Swal.fire({
+                            title: 'Success',
+                            html: response['message'],
+                            confirmButtonColor: 'rgb(150, 41, 65)',
+                            confirmButtonText: 'Ok',
+                        }).then(function(){
+                            window.location = '@Url.Action("Index","Profile")';
+                        });
+                    }
+                }
+            });
+        });
+    })
+</script>

@@ -1,0 +1,47 @@
+﻿@{
+    Layout = "~/Views/Shared/_LandingPageLayou.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/landing.css">
+    <link rel="stylesheet" href="~/css/landing.css" />
+    <script src="https://kit.fontawesome.com/247b19d47d.js" crossorigin="anonymous"></script>
+
+    <title>Annotation</title>
+</head>
+<body>
+    <div id="con">
+        <div id="right">
+            <button type="submit" onclick="Getstarted()">
+                Get started<i class="fa fa-play ply"></i>
+            </button>
+            <i class="fa fa-plus pl"></i>
+            <img id="im" src="/img/landing.png">
+        </div>
+        <div id="left">
+            <h1>Annotation Tool</h1>
+            <div id="animation">
+                <h3>
+                    <span id="element"></span>
+                </h3>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+<script>
+    var typed = new Typed('#element', {
+        strings: ['Welcome', 'On this site we can provide annotation for images and texts.'],
+        typeSpeed: 180,
+    });
+</script>
+<script>
+    function Getstarted() {
+            window.location ='@Url.Action("Login", "Accountant")';
+        }
+</script>
