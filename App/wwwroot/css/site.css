@@ -1,0 +1,153 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px; /* Vertically center the text there */
+}
+aside {
+    background-color: #fff !important;
+    box-shadow: 0 0px 27px 0 rgba(0, 0, 0, 0.4) !important;
+    height: 95%;
+}
+.my_title {
+    text-align: center;
+    padding: 1.8rem;
+    display: block;
+    margin-top: 20px;
+}
+.logo {
+    margin-left: 40%;
+    margin-top: -20px;
+    background-image: linear-gradient(310deg, rgb(150, 41, 65) 60%, black 100%);
+}
+.logoicon {
+    font-size: 14px !important;
+    color: black !important;
+    margin-top: -3px;
+    margin-left: 2px;
+}
+.my_title span {
+    color: black !important;
+    font-weight: 1000 !important;
+    font-size: 20px !important;
+}
+.my_btn i {
+        font-size: 14px !important;
+        color: black !important;
+    }
+.my_navlink {
+    color: black !important;
+    font-weight: 900 !important;
+    font-size: 15px !important;
+    transition: unset !important;
+    margin: 0rem 1rem 0rem 1rem !important
+}
+.my_navlink:hover {
+    background-color: rgb(150 41 65 / 90%);
+    color: #eee !important;
+    border-radius: 0.5rem;
+    box-shadow: 0 3px 5px 0 rgba(65, 0, 0, 1) !important;
+}
+.my_navlink-active {
+    background-color: rgb(150 41 65);
+    color: #eee !important;
+    border-radius: 0.5rem;
+    box-shadow: 0 3px 5px 0 rgba(65, 0, 0, 1) !important;
+}
+.my_pro {
+    background-image: linear-gradient(310deg, rgb(150, 41, 65) 60%, black 100%) !important;
+    font-size: 15px !important;
+    padding: 7px !important;
+    font-weight: bold !important;
+    box-shadow: 0 3px 5px 0 rgba(65, 0, 0, 1) !important;
+}
+.my_info {
+    /*background-color: rgb(150, 41, 65);*/
+    border-radius: 0.5rem;
+    height: 150px;
+    margin-top: 25px !important;
+    margin: auto;
+    background-image: linear-gradient(284deg, rgb(150, 41, 65) 60%, black 100%) !important;
+}
+.clockcont {
+    margin-left: 39% !important;
+    margin-top: -10px !important;
+    height: 2.5rem !important;
+    width: 2.5rem !important;
+}
+#clock {
+    font-size: 25px;
+}
+#left {
+    display: inline-grid;
+    width: 97%;
+    text-align: center;
+    color: black;
+    font-weight: 900;
+    color: #eee;
+}
+.loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #db3434;
+    width: 80px;
+    height: 80px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+    margin: auto;
+}

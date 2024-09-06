@@ -1,0 +1,79 @@
+body{
+    text-align: center;
+    background-image: url("/img/loginbak.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#cont_reg{
+    grid-template-columns: 1fr 1fr; 
+    grid-gap: 20px; 
+    border-radius: 10px;
+    backdrop-filter: blur(0px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6); 
+    background-color: rgba(255, 255, 255, 0.03);
+    width: 35%;
+    margin-top: 3%; 
+    height: 610px;
+    display: inline-flex;
+}
+#h1{
+    font-family: cursive;
+    margin-top: -7px;
+    color: rgb(150, 41, 65);
+    color:#eee;
+    margin-top: 0px;
+}
+#rightr {
+    border-radius: 10px;
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    background-color: rgba(255, 255, 255, 0.03);
+    height: 565px !important;
+    background-color: rgb(150, 41, 65);
+    border: 0px;
+}
+#rightr{
+    padding-top: 45px;
+}
+.btn{
+   width: 360px;
+   height: 40px;
+   border-radius: 10px;
+   margin-top: 13px;
+   padding-left: 20px;
+   padding-right: 20px;
+
+}
+.input{
+   margin-top: -11px;
+ }
+#Create{
+    width: 200px;
+    height: 40px;
+    text-align: center;
+    margin-top: 30px;
+    font-family: cursive;
+    font-size: 15px;
+    cursor: pointer;
+    background-color: #f1adad;
+}
+#Create:hover{
+    background-color: bisque;
+}
+a:hover{
+    color: #eee !important;
+}
+#faa{
+    color:#eee;
+    margin-top: -30px;
+}
+#myformr{
+    margin-bottom: 10px;
+}
+@media only screen and (min-width: 900px) { 
+    #cont_reg{
+        width: 500px;
+    }
+}

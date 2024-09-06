@@ -1,0 +1,282 @@
+﻿.container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #f8f8f8;
+}
+.controls {
+    padding: 10px;
+    background-color: #f8f8f8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+button {
+    cursor: pointer;
+}
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+/* Provide sufficient contrast against white background */
+a {
+    color: #0366d6;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    font-size: 14px;
+}
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+}
+aside {
+    background-color: #fff !important;
+    box-shadow: 0 22px 27px 0 rgba(0, 0, 0, 0.4) !important;
+    height: 95%;
+}
+.my_title {
+    text-align: center;
+    padding: 1.8rem;
+    display: block;
+    margin-top: 10px;
+}
+.logo {
+    margin-left: 40%;
+    margin-top: -20px;
+    background-image: linear-gradient(310deg, rgb(150, 41, 65) 60%, black 100%);
+}
+.logoicon {
+    font-size: 14px !important;
+    color: black !important;
+    margin-top: -3px;
+    margin-left: 2px;
+}
+.my_title span {
+    color: black !important;
+    font-weight: 1000 !important;
+    font-size: 20px !important;
+}
+.my_navlink input, .my_navlink_class input {
+    width: 30px;
+    height: 30px;
+    border: none;
+}
+.my_navlink {
+    color: black !important;
+    font-weight: 900 !important;
+    font-size: 15px !important;
+    transition: unset !important;
+    margin: 0rem 1rem 0rem 1rem !important
+}
+    .my_navlink:hover {
+        background-color: rgb(150 41 65 / 90%);
+        color: #eee !important;
+        border-radius: 0.5rem;
+        box-shadow: 0 3px 5px 0 rgba(65, 0, 0, 1) !important;
+    }
+.my_pro {
+    background-image: linear-gradient(310deg, rgb(150, 41, 65) 60%, black 100%) !important;
+    font-size: 15px !important;
+    padding: 7px !important;
+    font-weight: bold !important;
+    box-shadow: 0 3px 5px 0 rgba(65, 0, 0, 1) !important;
+}
+.my_info {
+    /*background-color: rgb(150, 41, 65);*/
+    border-radius: 0.5rem;
+    height: 150px;
+    margin-top: 25px !important;
+    margin: auto;
+    background-image: linear-gradient(284deg, rgb(150, 41, 65) 60%, black 100%) !important;
+}
+.clockcont {
+    margin-left: 39% !important;
+    margin-top: -10px !important;
+    height: 2.5rem !important;
+    width: 2.5rem !important;
+}
+#clock {
+    font-size: 25px;
+}
+#left {
+    display: inline-grid;
+    width: 97%;
+    text-align: center;
+    color: black;
+    font-weight: 900;
+    color: #eee;
+}
+/*    background-image: linear-gradient(310deg, rgb(150, 41, 65) 60%, #eee 100%) !important;*/
+.loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #db3434;
+    width: 80px;
+    height: 80px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+    margin: auto;
+}
+/*my css*/
+#clearButton {
+    width: 100px;
+    margin-left: 85%;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    background-color: rgb(150, 41, 65);
+    font-weight: 900;
+    color: #fff;
+}
+    #clearButton:hover {
+        box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 1);
+    }
+.my-navpart {
+    display: inline-grid;
+    width: 49%;
+    text-align:center;
+}
+.my_title_h {
+    z-index: 1;
+    padding: 1rem !important;
+    text-align: center;
+    height: 72px;
+    padding-top: 1.5rem !important;
+}
+.my-hr {
+    margin-top: 10px !important;
+    background-image: linear-gradient(to right, rgb(0 0 0 / 0%), rgb(0 0 0), rgba(0, 0, 0, 0)) !important;
+}
+.my_pro {
+    background-image: linear-gradient(310deg, rgb(150, 41, 65) 60%, black 100%) !important;
+    font-size: 15px !important;
+    padding: 7px !important;
+    font-weight: bold !important;
+    box-shadow: 0 3px 5px 0 rgba(65, 0, 0, 1) !important;
+    color: #fff !important;
+    margin-top: -30px !important;
+}
+.my_classes {
+    padding: 10px;
+    margin-top: 10px;
+    text-align: center;
+    color: black;
+    font-size: 20px;
+    font-weight: 600;
+}
+.my_navlink_class {
+    color: black !important;
+    font-weight: 900 !important;
+    font-size: 15px !important;
+    transition: unset !important;
+    margin: 0rem 1rem 0rem 1rem !important
+}
+    .my_navlink_class:hover {
+        background-color: rgb(150 41 65 / 90%);
+        border-radius: 0.5rem;
+        box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 1) !important;
+    }
+.my_color_input {
+    width: 25px !important;
+    height: 25px !important;
+    border: none !important;
+    margin-top: -1px !important;
+    cursor: pointer !important;
+}
+.my_p_class {
+    color: black !important;
+    height: unset !important;
+    font-size: 20px !important;
+    font-weight: 900 !important;
+    margin-top: -4px !important;
+}
+.Class_card {
+    height: 54px !important;
+    cursor: pointer !important;
+}
+    .Class_card:hover {
+        box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 1) !important;
+        background-color: rgb(150 41 65 / 90%);
+    }
+.my_card {
+    display: inline-grid;
+    margin-top: 8px !important;
+    margin-left: -4px;
+    padding: 3px !important;
+}
+/*classes*/
+@media only screen and (min-width: 1200px) {
+    #footer-classes {
+        display:none !important;
+    }
+    #sidenav-classes{
+        display:block !important;
+    }
+    .text-cont {
+        height: 560px !important;
+    }
+}
+#footer-classes {
+    display: block;
+    margin-top: -20px;
+    /*height: 68px;
+    width: 120% !important;
+    overflow-x: scroll;*/
+}
+#sidenav-classes {
+    display: none;
+}
+.my_navlink_class.active {
+    background-color: rgb(150 41 65) !important;
+    border-radius: 0.5rem;
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 1) !important;
+}
+.Class_card.active {
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 1) !important;
+    background-color: rgb(150 41 65) !important;
+}

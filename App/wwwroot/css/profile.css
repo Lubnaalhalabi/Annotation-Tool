@@ -1,0 +1,81 @@
+﻿.my-header {
+    height: 116px;
+    background-image: linear-gradient(284deg, rgb(150, 41, 65) 60%, black 100%) !important;
+}
+.my-pro {
+    background-color: rgba(255, 255, 255, 0.6) !important;
+    color: black !important;
+}
+#setting {
+    border-radius: 1rem;
+}
+button {
+    background-image: linear-gradient(310deg, rgb(150, 41, 65) 60%, black 100%) !important;
+    font-size: 15px !important;
+}
+.user_img {
+    border-radius: 20% !important;
+    height: 100% !important;
+    width: 100% !important;
+}
+.img-cont {
+    height: 300px;
+    width: 300px;
+}
+#left_pro {
+    margin-left: 45px;
+    margin-right: 38px;
+    display: inline-grid !important;
+    width: 30%;
+}
+#right_pro {
+    display: inline-grid !important;
+    width: 55%;
+    position: absolute;
+    box-shadow: 8px 8px rgb(150, 41, 65), 16px 16px #740000, 24px 24px black;
+    margin-top: -9px;
+    height: 360px;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: #8080809c;
+    color: black;
+}
+.edit-img {
+    cursor: pointer;
+    text-align: center;
+    margin-top: -62px;
+    color: #eee;
+    font-size: 40px;
+}
+#Upd_btn {
+    margin: auto; 
+    margin-top: 58px;
+}
+@media only screen and (max-width: 999px) {
+    #right_pro, #left_pro {
+        display: block !important;
+        margin:auto;
+        margin-top: 5px;
+    }
+    #right_pro {
+        margin-left: 20%;
+    }
+    #left_pro {
+        margin-left: 47%;
+    }
+    .img-cont{
+        width:100px;
+        height:100px;
+    }
+    #Upd_btn {
+        margin: auto;
+        position: fixed;
+        bottom: 5px;
+        width:90%;
+        margin-top: 58px;
+    }
+    form {
+        height: 600px;
+    }
+
+}

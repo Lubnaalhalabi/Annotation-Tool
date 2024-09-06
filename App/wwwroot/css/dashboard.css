@@ -1,0 +1,107 @@
+﻿.smallicon {
+    background-image: linear-gradient(310deg, rgb(150, 41, 65) 60%, black 100%);
+}
+.charticon {
+    display: flex;
+    align-content: space-around;
+    align-items: baseline;
+    justify-content: center;
+}
+
+/*chart*/
+@property --p {
+    syntax: '<number>';
+    inherits: true;
+    initial-value: 1;
+}
+
+.pie {
+    --p: 20;
+    --b: 22px;
+    --c: darkred;
+    --w: 150px;
+    width: var(--w);
+    aspect-ratio: 1;
+    position: relative;
+    display: inline-grid;
+    margin: 5px;
+    place-content: center;
+    font-size: 25px;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+    .pie:before,
+    .pie:after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+    }
+
+    .pie:before {
+        inset: 0;
+        background: radial-gradient(farthest-side,var(--c) 98%,#0000) top/var(--b) var(--b) no-repeat, conic-gradient(var(--c) calc(var(--p)*1%),#0000 0);
+        -webkit-mask: radial-gradient(farthest-side,#0000 calc(99% - var(--b)),#000 calc(100% - var(--b)));
+        mask: radial-gradient(farthest-side,#0000 calc(99% - var(--b)),#000 calc(100% - var(--b)));
+    }
+
+    .pie:after {
+        inset: calc(50% - var(--b)/2);
+        background: var(--c);
+        transform: rotate(calc(var(--p)*3.6deg)) translateY(calc(50% - var(--w)/2));
+    }
+
+.animate {
+    animation: p 1s .5s both;
+}
+
+.no-round:before {
+    background-size: 0 0, auto;
+}
+
+.no-round:after {
+    content: none;
+}
+
+@keyframes p {
+    from {
+        --p: 0
+    }
+}
+/*chart*/
+.numbers h5{
+    color: black;
+}
+.numbers p {
+    color: rgb(150, 41, 65);
+}
+.numbers span {
+    font-size: 13px !important;
+    color: #28a745 !important;
+}
+/*donut chart*/
+/* (A) PIE CHART */
+.donut {
+    /* (A1) CIRCLE */
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    /* (A2) SEGMENTS */
+    background: conic-gradient( black 0deg 80deg, #520f0f 80deg 190deg, rgb(117 20 20) 190deg 360deg );
+}
+/* (B) DONUT "CONVERSION" */
+/* (B1) SMALLER CIRCLE */
+.hole {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background: #b7b1b1;
+}
+/* (B2) "CONVERT PIE TO DONUT" - CENTER SMALLER CIRCLE */
+.donut {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+}
+/* (X) DOES NOT MATTER */
